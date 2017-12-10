@@ -1,9 +1,9 @@
 <?php
 	if(isset($_GET["add"])){
-		$id = escapeshellarg(trim(trim($_GET["add"]), "@"));
-		header("X-Result: " . exec("java -jar deka.jar {$id}"));
-		header("Location: /");
-		exit;
+		$id = trim(trim($_GET["add"]), "@");
+		if(!empty($id)){
+			header("X-Result: " . exec("java -jar deka.jar " . escapeshellarg($id)));
+		}
 	}
 
 	$db = new PDO("sqlite:deka.db");
@@ -403,7 +403,7 @@
 						el.querySelector(".mdl-card__actions").style.display = "none";
 						continue;
 					}else{
-						el.querySelector(".template-icon").style.backgroundImage = "url('https://twitter.com/" + entry.ID + "/profile_image?size=original')";
+						el.querySelector(".template-icon").style.backgroundImage = "url('https://res.cloudinary.com/narusejun/image/twitter_name/h_200/" + entry.ID + ".jpg')";
 						el.querySelector(".template-name").textContent = entry.Name;
 						el.querySelector(".template-bio").textContent = entry.Bio;
 					}
